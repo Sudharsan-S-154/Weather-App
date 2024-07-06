@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="weather.css">
+  <link rel="icon" href="app-icon.png">
+</head>
+
+<body>
+  <main class="container">
+    <h2> Weather App </h2>
+    <p class="texthover"> <input class="text" id="cityName" type="text" autocomplete="on" placeholder="Enter City Name..."> </p>
+    <p> <button onclick="getInfo()" class="btn" id="btn"> Search </button> </p>
+    
+    <article class="weatherInfo">
+      <section class="location">
+        <img src="location.gif" height="100px" width="100px">
+        <p id="city">Eg. Chennai</p>
+      </section>
+
+      <section class="temp">
+        <img src="temp.gif" height="100px" width="100px">
+          <p id="temperature">25&deg;C</p>
+      </section>
+
+      <section class="weather">
+        <img src="sun.gif" id="weatherImage" height="100px" width="100px">
+        <p id="weather">Clear</p>
+      </section>
+
+      <section class="wind">
+        <img src="wind.gif" height="100px" width="100px">
+        <p id="wind">5.14 Km/hr</p>
+      </section>
+    </article>
+     
+  </main>
+
+  <script defer>
+    function getInfo(){
+      var cityName1 = document.getElementById("cityName").value;
+        if(cityName1===''){
+          document.getElementById("city").innerText = "-";
+          document.getElementById("weather").innerText="-";
+          document.getElementById("wind").innerText="-";
+          document.getElementById("temperature").innerText="-";
+          alert("Please Enter City Name");
+          }
+        else{
+          var cityName = cityName1[0].toUpperCase() + cityName1.slice(1).toLowerCase();
+          const api= async ()=>{
+            try{
+              const key = "26245e4c2b7c1a469d0945c3251d168a";
+              const url="https://api.openweathermap.org/data/2.5/weather?units=metric";
+              const value = await fetch(url+`&q=${cityName}&appid=${key}`);
+              const final = await value.json();
+                // console.log(final);
+              document.getElementById("city").innerText = cityName;
+
+              const weather1 = final.weather[0].main;
+              document.getElementById("weather").innerText=weather1;
+                // console.log(weather1);
+
+              const windSpeed = final.wind.speed;
+                // console.log(windSpeed);
+              document.getElementById("wind").innerText=windSpeed+" km/hr";
+
+              const temperature = final.main.temp;
+                // console.log(windSpeed);
+              document.getElementById("temperature").innerText=temperature+"\u00B0C";
+ 
+              const weatherLower = weather1.toLowerCase();
+                // console.log(weatherLower);
+              const weatherImage = document.getElementById("weatherImage");
+              const container=document.getElementById("container");
+
+                if(weatherLower.includes('clear')){
+                  weatherImage.src="sun.gif";
+                  document.body.style.backgroundImage="url('clear-bg.jpg')";                
+                  }
+                if(weatherLower.includes('clouds')){
+                  weatherImage.src="cloudy.gif";
+                  document.body.style.backgroundImage="url('cloudy-bg.jpg')";             
+                  }
+                if(weatherLower.includes('mist')){
+                  weatherImage.src="fog.gif";
+                  document.body.style.backgroundImage="url('fog-bg.jpg')";             
+                  }
+                if(weatherLower.includes('haze')){
+                  weatherImage.src="fog.gif";
+                  document.body.style.backgroundImage="url('fog-bg.jpg')";  
+                  }
+                if(weatherLower.includes('snow')){
+                  weatherImage.src="snow.gif";
+                  document.body.style.backgroundImage="url('snow-bg.jpg')";               
+                  }
+                if(weatherLower.includes('rain')){
+                  weatherImage.src="rain.gif";
+                  document.body.style.backgroundImage="url('rainy-bg.jpg')";                
+                  }
+                if(weatherLower.includes('drizzle')){
+                  weatherImage.src="drizzle.gif";
+                  document.body.style.backgroundImage="url('rainy-bg.jpg')";                 
+                    }
+                if(weatherLower.includes('thunderstorm')){
+                  weatherImage.src="storm.gif";
+                  document.body.style.backgroundImage="url('rainy-bg.jpg')";                
+                }
+            }
+
+            catch(e){
+              document.getElementById("city").innerText = "-";
+              document.getElementById("weather").innerText="-";
+              document.getElementById("wind").innerText="-";
+              document.getElementById("temperature").innerText="-";
+              alert("Invalid Location or Internet Problem While Fetching Current Weather Data");
+            };
+          }
+
+          api();
+        }
+      }
+    </script>
+    
+</body>
+</html>

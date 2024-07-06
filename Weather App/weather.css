@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: url("summer.jpg") no-repeat;
+    transform: all 3s ease-in-out;
+    background-size: cover;
+    height: 98vh;
+}
+
+.container{
+    height: 700px;
+    width:55%;
+    min-width: 450px;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+}
+
+.container p{   /* For Input and Button */
+    text-align: center;
+    margin-block: 15px;
+    font-size: 1.5rem;
+}
+
+.container h2{  /* For Heading */
+    text-align: center;
+    font-family: changa, 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    margin-top: 15px;
+    font-size: 2.5rem;
+}
+
+.container .texthover .text{  /* Input */
+    margin: 0px;
+    height: 40px;
+    width: 70%;
+    font-size: 1.2rem;
+    padding-left:20px;
+    letter-spacing:1px;
+    border:1px solid black;
+}
+
+.container .texthover .text:hover,.container .texthover .text:visited{
+    background-image: linear-gradient(to right,lightblue,powderblue,whitesmoke);
+}
+
+.btn{
+    height: 30px;
+    width:100px;
+    font-size: 1.2rem;
+    border-radius:5px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.btn::before{
+    content: "";
+    position: absolute;
+    height: 30px;
+    width:0;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right,lightblue,powderblue,whitesmoke);
+    transition: all .3s ease-in;
+    z-index:-1;
+}
+
+.btn:hover::before{
+    width: 100px;
+}
+
+
+.container .weatherInfo .temp, .container .weatherInfo .location,  .container .weatherInfo .wind,  .container .weatherInfo .weather{
+    display: flex;
+    justify-content: space-around;
+    margin: 30px;
+ }
+
+ .container .weatherInfo .temp p, .container .weatherInfo .location p,  .container .weatherInfo .wind p,  .container .weatherInfo .weather p{
+    transform: translateY(20px);
+ }
+ 
+ /* For responsive */
+ @media  screen and (max-width:1100px) {
+    .container .weatherInfo .temp, .container .weatherInfo .location,  .container .weatherInfo .wind,  .container .weatherInfo .weather{
+        gap:5rem;
+     }
+ }
+
+
+
